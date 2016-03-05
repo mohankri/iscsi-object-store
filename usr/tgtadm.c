@@ -395,6 +395,7 @@ static int bus_to_host(char *bus)
 
 static int str_to_device_type(char *str)
 {
+	printf("convert_device_type %s\n", str);
 	if (!strcmp(str, "disk"))
 		return TYPE_DISK;
 	else if (!strcmp(str, "tape"))
@@ -403,9 +404,10 @@ static int str_to_device_type(char *str)
 		return TYPE_MMC;
 	else if (!strcmp(str, "changer"))
 		return TYPE_MEDIUM_CHANGER;
-	else if (!strcmp(str, "osd"))
+	else if (!strcmp(str, "osd")) {
+		printf("return %d\n", TYPE_OSD);
 		return TYPE_OSD;
-	else if (!strcmp(str, "ssc"))
+	} else if (!strcmp(str, "ssc"))
 		return TYPE_TAPE;
 	else if (!strcmp(str, "pt"))
 		return TYPE_PT;
@@ -520,7 +522,7 @@ int main(int argc, char **argv)
 	targetOps = portalOps = bstype = bsopts = NULL;
 	bsoflags = blocksize = user = password = op_name = NULL;
 	force = 0;
-
+	printf("tgtadmin called ..\n");
 	optind = 1;
 	while ((ch = getopt_long(argc, argv, short_options,
 				 long_options, &longindex)) >= 0) {

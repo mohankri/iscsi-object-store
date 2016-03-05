@@ -36,7 +36,7 @@ TGTD_OBJS += iscsi/iser.o iscsi/iser_text.o
 LIBS += -libverbs -lrdmacm
 endif
 
-INCLUDES += -I.
+INCLUDES += -I. -I../osd-target
 
 CFLAGS += -D_GNU_SOURCE
 CFLAGS += $(INCLUDES)
@@ -49,7 +49,7 @@ CFLAGS += -Wall -Wstrict-prototypes -fPIC
 CFLAGS += -DTGT_VERSION=\"$(VERSION)$(EXTRAVERSION)\"
 CFLAGS += -DBSDIR=\"$(DESTDIR)$(libdir)/backing-store\"
 
-LIBS += -lpthread -ldl
+LIBS += -lpthread -ldl ../osd-target/libosdtgt.a -lsqlite3 ../osd-util/libosdutil.a -lm
 
 ifneq ($(SD_NOTIFY),)
 LIBS += -lsystemd
@@ -59,11 +59,12 @@ PROGRAMS += tgtd tgtadm tgtimg
 TGTD_OBJS += tgtd.o mgmt.o target.o scsi.o log.o driver.o util.o work.o \
 		concat_buf.o parser.o spc.o sbc.o mmc.o osd.o scc.o smc.o \
 		ssc.o libssc.o bs_rdwr.o bs_ssc.o \
-		bs_null.o bs_sg.o bs.o libcrc32c.o bs_sheepdog.o
+		bs_null.o bs_sg.o bs.o libcrc32c.o bs_sheepdog.o \
+		bs_osdemu.o
 
 TGTD_DEP = $(TGTD_OBJS:.o=.d)
 
-LDFLAGS = -Wl,-E,-rpath=$(libdir)
+LDFLAGS = -Wl,-E,-rpath=$(libdir):../osd-target
 
 .PHONY:all
 all: $(PROGRAMS) $(MODULES)

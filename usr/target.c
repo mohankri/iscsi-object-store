@@ -54,11 +54,12 @@ int device_type_register(struct device_type_template *t)
 static struct device_type_template *device_type_lookup(int type)
 {
 	struct device_type_template *t;
-
+	printf("device type lookup %x\n", type);
 	list_for_each_entry(t, &device_type_list, device_type_siblings) {
 		if (t->type == type)
 			return t;
 	}
+	printf("failed device type lookup %x\n", type);
 	return NULL;
 }
 

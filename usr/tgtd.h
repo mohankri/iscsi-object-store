@@ -170,6 +170,7 @@ struct backingstore_template {
 	tgtadm_err (*bs_init)(struct scsi_lu *dev, char *bsopts);
 	void (*bs_exit)(struct scsi_lu *dev);
 	int (*bs_cmd_submit)(struct scsi_cmd *cmd);
+	int (*bs_cmd_done)(struct scsi_cmd *cmd);
 	int bs_oflags_supported;
 	unsigned long bs_supported_ops[NR_SCSI_OPCODES / __WORDSIZE];
 
@@ -200,6 +201,7 @@ struct scsi_lu {
 	uint64_t size;
 	uint64_t lun;
 	char *path;
+	char *osdname;
 	int bsoflags;
 	unsigned int blk_shift;
 

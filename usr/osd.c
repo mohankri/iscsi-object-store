@@ -146,5 +146,6 @@ static struct device_type_template osd_template = {
 
 __attribute__((constructor)) static void osd_init(void)
 {
+	printf("register OSD");
 	device_type_register(&osd_template);
 }
