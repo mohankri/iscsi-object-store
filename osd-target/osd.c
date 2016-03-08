@@ -1751,8 +1751,8 @@ int osd_format_osd(struct osd_device *osd, uint64_t capacity, uint32_t cdb_cont_
 {
 
     int ret = format_osd(osd, capacity, cdb_cont_len, sense);
-
-    free(osd->root);
+    /* Commented by KM */
+    //free(osd->root);
     return ret;
 }
 
