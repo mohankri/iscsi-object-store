@@ -16,17 +16,20 @@ export GLFS_BD
 export SD_NOTIFY
 
 .PHONY: all
-all: programs doc conf scripts
-
+all: programs conf scripts
 # Targets for the /usr/sbin utilities
 .PHONY: programs install-programs clean-programs
 programs:
+	$(MAKE) -C osd-util
+	$(MAKE) -C osd-target
 	$(MAKE) -C usr
 
 install-programs:
 	$(MAKE) -C usr install
 
 clean-programs:
+	$(MAKE) -C osd-util
+	$(MAKE) -C osd-target
 	$(MAKE) -C usr clean
 
 # Targets for man pages and other documentation
