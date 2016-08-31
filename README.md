@@ -1,1 +1,5 @@
 # object-store
+```
+targets.conf
+
+```
